@@ -1,88 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="https://shockedshadow.github.io/TexasStateRP/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TSRP Store | Coming Soon</title>
+    <title>TXSRP | Official State Shop</title>
     <link rel="icon" type="image/png" href="logo.png?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #050508; --accent: #3A86FF; --card: rgba(255, 255, 255, 0.03); }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: white; overflow: hidden; }
+        :root { 
+            --bg: #050508; 
+            --accent: #3A86FF; 
+            --diamond: #b9f2ff;
+            --gold: #FFD700;
+            --silver: #C0C0C0;
+            --bronze: #CD7F32;
+            --card: rgba(255, 255, 255, 0.03); 
+        }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: white; line-height: 1.6; }
         
-        /* Background Glow */
-        .glow {
-            position: absolute; width: 300px; height: 300px; background: var(--accent);
-            filter: blur(150px); opacity: 0.15; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            z-index: -1;
+        /* Launch Glow Effect */
+        .launch-header { 
+            padding: 80px 20px; text-align: center; 
+            background: radial-gradient(circle at center, rgba(58, 134, 255, 0.1) 0%, transparent 70%);
         }
 
-        .container { 
-            height: 100vh; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; text-align: center; padding: 0 20px; 
+        .new-badge {
+            background: var(--accent); color: white; padding: 5px 15px; border-radius: 50px;
+            font-size: 0.7rem; font-weight: 900; letter-spacing: 2px; display: inline-block; margin-bottom: 15px;
         }
 
-        .coming-soon-badge {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1);
-            padding: 8px 15px; border-radius: 30px; font-size: 0.7rem; font-weight: 900;
-            letter-spacing: 2px; color: var(--accent); margin-bottom: 20px;
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 100px 20px; }
+        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+
+        /* Tier Cards */
+        .tier-card {
+            background: var(--card); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px; padding: 30px; display: flex; flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; overflow: hidden;
         }
 
-        h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900; margin: 0; letter-spacing: -2px; }
-        p { color: #888; max-width: 500px; margin: 20px 0 40px 0; }
+        .tier-card:hover { transform: translateY(-10px); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); }
 
-        /* Teaser Grid */
-        .preview-grid { 
-            display: flex; gap: 20px; opacity: 0.4; filter: grayscale(1); 
-            pointer-events: none; transform: scale(0.9); transition: 0.5s;
+        .tier-icon { font-size: 3rem; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+        
+        h3 { margin: 10px 0; font-size: 1.4rem; font-weight: 900; }
+        .perks { list-style: none; padding: 0; margin: 20px 0; font-size: 0.85rem; color: #aaa; flex-grow: 1; }
+        .perks li { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .perks li::before { content: '★'; color: inherit; font-size: 0.7rem; }
+
+        .buy-btn {
+            text-align: center; text-decoration: none; padding: 15px; border-radius: 12px;
+            font-weight: 900; font-size: 0.9rem; transition: 0.3s;
         }
 
-        .preview-card {
-            background: var(--card); border: 1px solid rgba(255,255,255,0.1);
-            padding: 20px; border-radius: 15px; width: 180px; text-align: left;
+        /* Tier Colors */
+        .bronze { border-top: 5px solid var(--bronze); }
+        .bronze .buy-btn { background: var(--bronze); color: white; }
+        .silver { border-top: 5px solid var(--silver); }
+        .silver .buy-btn { background: var(--silver); color: black; }
+        .gold { border-top: 5px solid var(--gold); }
+        .gold .buy-btn { background: var(--gold); color: black; }
+        .diamond { border-top: 5px solid var(--diamond); box-shadow: 0 0 30px rgba(185, 242, 255, 0.1); }
+        .diamond .buy-btn { background: var(--diamond); color: black; }
+
+        .diamond-tag {
+            position: absolute; top: 15px; right: -30px; background: var(--diamond);
+            color: black; transform: rotate(45deg); padding: 5px 40px; font-size: 0.6rem; font-weight: 900;
         }
-
-        .preview-card h4 { margin: 10px 0; font-size: 0.9rem; }
-        .line { width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; margin-bottom: 8px; }
-
-        .notify-btn {
-            background: white; color: black; padding: 15px 40px; border-radius: 10px;
-            font-weight: 900; text-decoration: none; transition: 0.3s; margin-top: 40px;
-        }
-
-        .notify-btn:hover { background: var(--accent); color: white; transform: translateY(-3px); }
     </style>
 </head>
 <body>
 
-    <div class="glow"></div>
+    <header class="launch-header">
+        <a href="index.html" style="color: #666; text-decoration: none; font-size: 0.8rem; font-weight: bold;">← RETURN HOME</a>
+        <br><br>
+        <div class="new-badge">JUST RELEASED</div>
+        <h1 style="font-size: 3.5rem; font-weight: 900; margin: 0;">TEXAN <span style="color: var(--accent);">COLLECTION</span></h1>
+        <p style="color: #888; max-width: 600px; margin: 15px auto;">Support the state and unlock exclusive in-game perks. Our 1K member milestone special edition passes are now live.</p>
+    </header>
 
     <div class="container">
-        <div class="coming-soon-badge">ESTABLISHED AT 1K MEMBERS</div>
-        <h1>THE OFFICIAL <span>STORE</span></h1>
-        <p>We are currently finalizing our support tiers and perks to ensure the best experience for our community. Stay tuned.</p>
+        <div class="shop-grid">
+            
+            <div class="tier-card bronze">
+                <div class="tier-icon">🥉</div>
+                <h3>Bronze Texan</h3>
+                <ul class="perks" style="color: var(--bronze);">
+                    <li>Discord Supporter Role</li>
+                    <li>Bronze Nameplate</li>
+                    <li>Entry-Level Priority Queue</li>
+                </ul>
+                <a href="https://www.roblox.com/game-pass/1713728898/TXSRP-Bronze" target="_blank" class="buy-btn">GET PASS</a>
+            </div>
 
-        <div class="preview-grid">
-            <div class="preview-card">
-                <div class="line" style="width: 40%; background: var(--accent);"></div>
-                <h4>BRONZE</h4>
-                <div class="line"></div><div class="line"></div>
+            <div class="tier-card silver">
+                <div class="tier-icon">🥈</div>
+                <h3>Silver Texan</h3>
+                <ul class="perks" style="color: var(--silver);">
+                    <li>All Bronze Perks</li>
+                    <li>Silver Nameplate</li>
+                    <li>Mid-Tier Priority Queue</li>
+                    <li>Access to Silver Chat Color</li>
+                </ul>
+                <a href="https://www.roblox.com/game-pass/1713746942/TXSRP-Silver" target="_blank" class="buy-btn">GET PASS</a>
             </div>
-            <div class="preview-card" style="border-color: gold;">
-                <div class="line" style="width: 40%; background: gold;"></div>
-                <h4>GOLD VIP</h4>
-                <div class="line"></div><div class="line"></div>
+
+            <div class="tier-card gold">
+                <div class="tier-icon">👑</div>
+                <h3>Gold Texan</h3>
+                <ul class="perks" style="color: var(--gold);">
+                    <li>All Silver Perks</li>
+                    <li>Gold Nameplate</li>
+                    <li>High-Tier Priority Queue</li>
+                    <li>Exclusive Gold Vehicle Skin</li>
+                </ul>
+                <a href="https://www.roblox.com/game-pass/1713334200/TXSRP-Gold" target="_blank" class="buy-btn">GET PASS</a>
             </div>
-            <div class="preview-card">
-                <div class="line" style="width: 40%; background: var(--accent);"></div>
-                <h4>LEGEND</h4>
-                <div class="line"></div><div class="line"></div>
+
+            <div class="tier-card diamond">
+                <div class="diamond-tag">ULTIMATE</div>
+                <div class="tier-icon">💎</div>
+                <h3>Diamond Texan</h3>
+                <ul class="perks" style="color: var(--diamond);">
+                    <li>THE ULTIMATE PERKS</li>
+                    <li>Diamond Chat & Nameplate</li>
+                    <li>Instant Queue Bypass</li>
+                    <li>Custom Personal Vehicle</li>
+                    <li>Private Staff Lounge Access</li>
+                </ul>
+                <a href="https://www.roblox.com/game-pass/1713988349/TXSRP-Diamond" target="_blank" class="buy-btn">GET PASS</a>
             </div>
+
         </div>
-
-        <a href="https://discord.gg/txsrp" class="notify-btn">GET NOTIFIED ON DISCORD</a>
-        
-        <a href="index.html" style="margin-top: 30px; color: #444; text-decoration: none; font-size: 0.8rem; font-weight: bold;">RETURN TO HOME</a>
     </div>
 
 </body>
