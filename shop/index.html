@@ -3,115 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TSRP Store | Support the Community</title>
+    <title>TSRP Store | Coming Soon</title>
     <link rel="icon" type="image/png" href="logo.png?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #050508; --accent: #3A86FF; --gold: #FFD700; --card: rgba(255, 255, 255, 0.03); }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: white; line-height: 1.6; }
+        :root { --bg: #050508; --accent: #3A86FF; --card: rgba(255, 255, 255, 0.03); }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: white; overflow: hidden; }
         
-        .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; text-align: center; }
-        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 50px; }
-        
-        .product-card { 
-            background: var(--card); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            border-radius: 20px; 
-            padding: 30px; 
-            transition: 0.3s; 
-            display: flex; 
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .product-card:hover { border-color: var(--accent); transform: translateY(-5px); background: rgba(58, 134, 255, 0.05); }
-        
-        .tier-badge { 
-            background: var(--accent); 
-            color: white; 
-            font-size: 0.7rem; 
-            font-weight: 900; 
-            padding: 5px 15px; 
-            border-radius: 20px; 
-            align-self: center;
-            margin-bottom: 15px;
+        /* Background Glow */
+        .glow {
+            position: absolute; width: 300px; height: 300px; background: var(--accent);
+            filter: blur(150px); opacity: 0.15; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: -1;
         }
 
-        .price { font-size: 2.5rem; font-weight: 900; margin: 15px 0; }
-        .price span { font-size: 1rem; color: #666; }
-
-        .features-list { list-style: none; padding: 0; margin: 20px 0; text-align: left; font-size: 0.9rem; color: #aaa; }
-        .features-list li { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .features-list li::before { content: '✓'; color: var(--accent); font-weight: bold; }
-
-        .buy-btn { 
-            background: white; 
-            color: black; 
-            text-decoration: none; 
-            padding: 15px; 
-            border-radius: 10px; 
-            font-weight: 800; 
-            margin-top: auto;
-            transition: 0.3s;
+        .container { 
+            height: 100vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center; padding: 0 20px; 
         }
-        
-        .buy-btn:hover { background: var(--accent); color: white; }
 
-        /* Featured/VIP Look */
-        .featured { border: 2px solid var(--gold); }
-        .featured .tier-badge { background: var(--gold); color: black; }
-        .featured .buy-btn { background: var(--gold); }
+        .coming-soon-badge {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1);
+            padding: 8px 15px; border-radius: 30px; font-size: 0.7rem; font-weight: 900;
+            letter-spacing: 2px; color: var(--accent); margin-bottom: 20px;
+        }
+
+        h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900; margin: 0; letter-spacing: -2px; }
+        p { color: #888; max-width: 500px; margin: 20px 0 40px 0; }
+
+        /* Teaser Grid */
+        .preview-grid { 
+            display: flex; gap: 20px; opacity: 0.4; filter: grayscale(1); 
+            pointer-events: none; transform: scale(0.9); transition: 0.5s;
+        }
+
+        .preview-card {
+            background: var(--card); border: 1px solid rgba(255,255,255,0.1);
+            padding: 20px; border-radius: 15px; width: 180px; text-align: left;
+        }
+
+        .preview-card h4 { margin: 10px 0; font-size: 0.9rem; }
+        .line { width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; margin-bottom: 8px; }
+
+        .notify-btn {
+            background: white; color: black; padding: 15px 40px; border-radius: 10px;
+            font-weight: 900; text-decoration: none; transition: 0.3s; margin-top: 40px;
+        }
+
+        .notify-btn:hover { background: var(--accent); color: white; transform: translateY(-3px); }
     </style>
 </head>
 <body>
 
+    <div class="glow"></div>
+
     <div class="container">
-        <a href="index.html" style="color: #666; text-decoration: none; font-weight: bold;">← BACK TO HOME</a>
-        <h1 style="font-size: 3.5rem; font-weight: 900; margin: 10px 0;">OFFICIAL <span style="color: var(--accent);">STORE</span></h1>
-        <p style="color: #888;">Support the server and unlock exclusive perks. All proceeds go directly toward server hosting and development.</p>
+        <div class="coming-soon-badge">ESTABLISHED AT 1K MEMBERS</div>
+        <h1>THE OFFICIAL <span>STORE</span></h1>
+        <p>We are currently finalizing our support tiers and perks to ensure the best experience for our community. Stay tuned.</p>
 
-        <div class="shop-grid">
-            <div class="product-card">
-                <div class="tier-badge">SUPPORTER</div>
-                <h3>Bronze Tier</h3>
-                <div class="price">$5<span>/mo</span></div>
-                <ul class="features-list">
-                    <li>Discord Supporter Role</li>
-                    <li>Priority Queue (Low)</li>
-                    <li>Exclusive In-Game Chat Icon</li>
-                </ul>
-                <a href="YOUR_LINK_HERE" class="buy-btn">PURCHASE</a>
+        <div class="preview-grid">
+            <div class="preview-card">
+                <div class="line" style="width: 40%; background: var(--accent);"></div>
+                <h4>BRONZE</h4>
+                <div class="line"></div><div class="line"></div>
             </div>
-
-            <div class="product-card featured">
-                <div class="tier-badge">MOST POPULAR</div>
-                <h3>Gold VIP</h3>
-                <div class="price">$15<span>/mo</span></div>
-                <ul class="features-list">
-                    <li>Custom Discord Role & Color</li>
-                    <li>Priority Queue (High)</li>
-                    <li>Access to VIP Vehicles</li>
-                    <li>Beta Access to New Features</li>
-                </ul>
-                <a href="YOUR_LINK_HERE" class="buy-btn">PURCHASE</a>
+            <div class="preview-card" style="border-color: gold;">
+                <div class="line" style="width: 40%; background: gold;"></div>
+                <h4>GOLD VIP</h4>
+                <div class="line"></div><div class="line"></div>
             </div>
-
-            <div class="product-card">
-                <div class="tier-badge">LEGENDARY</div>
-                <h3>Server Booster</h3>
-                <div class="price">$25<span>/mo</span></div>
-                <ul class="features-list">
-                    <li>Instant Queue Bypass</li>
-                    <li>Custom In-Game License Plate</li>
-                    <li>1x Custom Car Texture/Livery</li>
-                    <li>Direct Feedback Channel</li>
-                </ul>
-                <a href="YOUR_LINK_HERE" class="buy-btn">PURCHASE</a>
+            <div class="preview-card">
+                <div class="line" style="width: 40%; background: var(--accent);"></div>
+                <h4>LEGEND</h4>
+                <div class="line"></div><div class="line"></div>
             </div>
         </div>
 
-        <p style="margin-top: 50px; font-size: 0.8rem; color: #555;">Transactions are processed securely. Please allow up to 24 hours for in-game perks to activate. For support, open a ticket in our Discord.</p>
+        <a href="https://discord.gg/txsrp" class="notify-btn">GET NOTIFIED ON DISCORD</a>
+        
+        <a href="index.html" style="margin-top: 30px; color: #444; text-decoration: none; font-size: 0.8rem; font-weight: bold;">RETURN TO HOME</a>
     </div>
 
 </body>
