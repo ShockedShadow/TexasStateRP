@@ -3,53 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TSRP | Staff Terminal</title>
-    <link rel="icon" type="image/png" href="../logo.png?v=2">
+    <title>TXSRP | Staff Dashboard</title>
+    <link rel="icon" type="image/png" href="https://shockedshadow.github.io/TexasStateRP/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #050508; --accent: #3A86FF; --card: rgba(255, 255, 255, 0.05); }
-        body { margin: 0; font-family: sans-serif; background: var(--bg); color: white; }
+        :root { 
+            --bg: #050508; 
+            --accent: #3A86FF; 
+            --card: rgba(255, 255, 255, 0.03); 
+            --border: rgba(255, 255, 255, 0.1);
+        }
         
-        #login-screen { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .btn-discord { background: #5865F2; color: white; padding: 15px 30px; border-radius: 8px; font-weight: bold; border: none; cursor: pointer; }
+        body { 
+            margin: 0; 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            color: white; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Login Box */
+        #login-screen { 
+            text-align: center; 
+            background: var(--card);
+            padding: 50px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .btn-discord { 
+            background: #5865F2; 
+            color: white; 
+            padding: 15px 40px; 
+            border-radius: 10px; 
+            font-weight: 900; 
+            border: none; 
+            cursor: pointer; 
+            font-size: 1rem;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
         
-        #main-content { display: none; padding: 20px; max-width: 600px; margin: auto; }
-        .user-profile { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; padding: 15px; background: var(--card); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
-        .user-profile img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--accent); }
-        .card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
-        .card:hover { border-color: var(--accent); }
-        .btn-logout { background: transparent; color: #ff4444; border: 1px solid #ff4444; padding: 10px; border-radius: 8px; width: 100%; margin-top: 20px; cursor: pointer; font-weight: bold; }
+        .btn-discord:hover { 
+            background: #4752c4;
+            transform: translateY(-2px); 
+        }
+
+        /* Dashboard View */
+        #main-content { 
+            display: none; 
+            width: 90%; 
+            max-width: 450px; 
+        }
+
+        .header-area {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card { 
+            background: var(--card); 
+            padding: 18px 25px; 
+            border-radius: 12px; 
+            border: 1px solid var(--border); 
+            margin-bottom: 15px; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .card:hover { 
+            background: rgba(255,255,255,0.08);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        /* Alting Tab Styling */
+        .alt-tab { 
+            border-left: 4px solid var(--accent); 
+            background: rgba(58, 134, 255, 0.05);
+            color: var(--accent);
+        }
+
+        .logout-btn {
+            margin-top: 20px;
+            width: 100%;
+            background: transparent;
+            border: 1px solid #ff4444;
+            color: #ff4444;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 800;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover { background: rgba(255, 68, 68, 0.1); }
     </style>
 </head>
 <body>
 
     <div id="login-screen">
-        <img src="../logo.png" width="80" style="margin-bottom: 20px;">
-        <h2>Staff Dashboard</h2>
-        <p style="color: #666; margin-bottom: 25px;">Verified Personnel Only</p>
-        <button class="btn-discord" onclick="loginWithDiscord()">Login with Discord</button>
+        <img src="https://shockedshadow.github.io/TexasStateRP/logo.png" width="90" style="margin-bottom: 20px;">
+        <h2 style="margin: 0; letter-spacing: -1px;">STAFF TERMINAL</h2>
+        <p style="color: #666; font-size: 0.9rem; margin-bottom: 30px;">TXSRP Authorized Personnel Only</p>
+        
+        <button class="btn-discord" onclick="
+            var pass = prompt('Please enter the Staff Access Key:');
+            if (pass === 'TXSRP_STAFF') { 
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            } else {
+                alert('Access Denied: Invalid Staff Key');
+            }
+        ">Login with Discord</button>
     </div>
 
     <div id="main-content">
-        <div class="user-profile">
-            <img id="user-avatar" src="">
-            <div>
-                <div id="user-name" style="font-weight: bold;">Loading...</div>
-                <small style="color: var(--accent);">Level 1 Administrator</small>
-            </div>
+        <div class="header-area">
+            <h1 style="font-weight: 900; margin: 0; font-size: 1.5rem;">WELCOME, <span style="color: var(--accent);">STAFF</span></h1>
+            <p style="color: #555; font-size: 0.8rem; font-weight: 700;">SYSTEM VERSION 2.1.0</p>
         </div>
 
-        <h3>Terminal Tools</h3>
-        <div class="card" onclick="openMelonly()">🖥️ Open Melonly Dashboard</div>
-        <div class="card">📄 View Server Logs</div>
-        <div class="card">🛡️ Submit Disciplinary Form</div>
+        <div class="card" onclick="window.open('https://melonly.xyz', '_blank')">
+            🖥️ Melonly Dashboard
+        </div>
 
-        <button class="btn-logout" onclick="logout()">LOG OUT</button>
+        <div class="card alt-tab" onclick="
+            if (confirm('Would you like to alt? If so heres the download!')) {
+                window.location.href = 'https://github.com/ShockedShadow/NexusAccman/releases/download/Downloader/NexusSetup.exe';
+            }
+        ">
+            👤 Alting (Account Manager)
+        </div>
+
+        <div class="card" onclick="alert('Opening secure logs...')">
+            📄 View Server Logs
+        </div>
+
+        <div class="card" onclick="alert('Opening disciplinary forms...')">
+            🛡️ Disciplinary Actions
+        </div>
+
+        <button class="logout-btn" onclick="location.reload()">TERMINATE SESSION</button>
     </div>
 
-    <script>
-        // Paste your Discord/Melonly Logic here!
-        function loginWithDiscord() { /* ... */ }
-        function logout() { window.location.hash = ""; window.location.href = window.location.pathname; }
-    </script>
 </body>
 </html>
